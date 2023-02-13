@@ -14,10 +14,18 @@ class ViewController: NSViewController {
 
         DispatchQueue.global(qos: .background).async { [weak self] in
             self?.save()
-//            self?.getPassword()
+            self?.getPassword()
         }
     }
-    
+
+    override var representedObject: Any? {
+        didSet {
+        // Update the view, if already loaded.
+        }
+    }
+}
+
+extension ViewController {
     private func save() {
         do {
             try KeychainManager.save(service: "instagram.com", account: "gbraghin", password: "something".data(using: .utf8) ?? Data())
@@ -35,12 +43,6 @@ class ViewController: NSViewController {
         
         let password = String(decoding: data, as: UTF8.self)
         print("Password: \(password)")
-    }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
     }
 }
 
