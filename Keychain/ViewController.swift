@@ -12,7 +12,14 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        DispatchQueue.global(qos: .background).async {
+            do {
+                try KeychainManager.save(service: "instagram.com", account: "gbraghin", password: "something".data(using: .utf8) ?? Data())
+            }
+            catch {
+                print(error)
+            }
+        }
     }
 
     override var representedObject: Any? {
@@ -20,7 +27,5 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
-
-
 }
 
